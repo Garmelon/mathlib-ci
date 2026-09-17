@@ -25,7 +25,7 @@ fi
 # This is not meant to be run from the command line, only from CI.
 # The inputs must be prepared as:
 # env:
-#   TOKEN: ${{ secrets.LEAN_PR_TESTING }}
+#   TOKEN: ${{ secrets.BATTERIES_PR_TESTING }}
 #   GITHUB_CONTEXT: ${{ toJson(github) }}
 #   WORKFLOW_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}
 #   BUILD_OUTCOME: ${{ steps.build.outcome }}
@@ -174,7 +174,7 @@ if [[ "$branch_name" =~ ^$branch_prefix-([0-9]+)$ ]]; then
     existing_comment=$(curl -L -sS --fail-with-body -H "Authorization: token $TOKEN" \
                             -H "Accept: application/vnd.github.v3+json" \
                             "$repo_url/issues/$pr_number/comments" \
-                            | jq 'first(.[] | select(.body | test("^- . Mathlib") or startswith("Mathlib CI status")) | select(.user.login == "mathlib-lean-pr-testing[bot]"))')
+                            | jq 'first(.[] | select(.body | test("^- . Mathlib") or startswith("Mathlib CI status")) | select(.user.login == "mathlib-nightly-testing[bot]"))')
     existing_comment_id=$(echo "$existing_comment" | jq -r .id)
     existing_comment_body=$(echo "$existing_comment" | jq -r .body)
 
